@@ -53,6 +53,11 @@ export function AdminTopbar() {
               <Menu className="h-3.5 w-3.5" />
               Menu
             </button>
+            {menuOpen ? (
+              <div className="fixed inset-x-4 top-20 z-50 sm:left-auto sm:right-6 sm:top-24 sm:w-[22rem]">
+                <AdminSidebar onNavigate={() => setMenuOpen(false)} />
+              </div>
+            ) : null}
           </div>
           <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-3 py-2 text-xs text-white/75">
             <Bell className="h-3.5 w-3.5 text-white/55" />
@@ -68,14 +73,7 @@ export function AdminTopbar() {
           </button>
         </div>
       </div>
-      {menuOpen ? (
-        <>
-          <div className="fixed inset-0 z-40 bg-black/50 backdrop-blur-[2px]" />
-          <div className="fixed inset-x-4 top-20 z-50 sm:left-auto sm:right-6 sm:top-24 sm:w-[22rem]">
-            <AdminSidebar onNavigate={() => setMenuOpen(false)} />
-          </div>
-        </>
-      ) : null}
+      {menuOpen ? <div className="fixed inset-0 z-40 bg-black/50 backdrop-blur-[2px]" /> : null}
     </header>
   );
 }
