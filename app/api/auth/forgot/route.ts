@@ -8,6 +8,7 @@ import { sendResetPasswordEmail } from "@/lib/mailer";
 export async function POST(request: Request) {
   const body = await request.json().catch(() => ({}));
   const email = String(body.email ?? "").trim().toLowerCase();
+  const callbackPath = String(body.callbackPath ?? "/login").trim();
 
   if (!email) {
     return NextResponse.json({ error: "Email is required." }, { status: 400 });
@@ -35,7 +36,9 @@ export async function POST(request: Request) {
   });
 
   const baseUrl = env.NEXTAUTH_URL ?? "http://localhost:3000";
-  const resetUrl = `${baseUrl}/login?mode=forgot&token=${token}`;
+  const safeCallbackPath =
+    callbackPath.startsWith("/") && !callbackPath.startsWith("//") ? callbackPath : "/login";
+  const resetUrl = `${baseUrl}${safeCallbackPath}?token=${token}`;
   let emailSent = false;
   let emailError: string | undefined;
 
