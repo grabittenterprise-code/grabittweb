@@ -84,7 +84,7 @@ export function Navbar() {
     >
       <div className="section-wrap">
         <div
-          className={`relative mt-4 flex items-center justify-between rounded-full border px-5 py-3 transition duration-300 sm:px-6 ${
+          className={`relative mt-4 flex items-center justify-between gap-3 rounded-full border px-5 py-3 transition duration-300 sm:px-6 ${
             scrolled
               ? "border-white/18 bg-black/70 shadow-[0_22px_65px_rgba(0,0,0,0.6)]"
               : "border-white/10 bg-black/40 shadow-[0_18px_55px_rgba(0,0,0,0.48)]"
@@ -100,9 +100,9 @@ export function Navbar() {
           />
           <Link
             href="/"
-            className="flex items-center gap-3 font-serif text-lg tracking-[0.32em] text-white"
+            className="min-w-0 flex items-center gap-3 font-serif text-lg tracking-[0.32em] text-white"
           >
-            GRABITT
+            <span className="truncate">GRABITT</span>
             <span className="hidden text-[0.6rem] font-semibold uppercase tracking-[0.45em] text-white/45 sm:inline">
               Atelier
             </span>
@@ -127,7 +127,7 @@ export function Navbar() {
               );
             })}
           </nav>
-          <div className="flex items-center gap-3 text-white/85">
+          <div className="hidden items-center gap-3 text-white/85 lg:flex">
             <div ref={searchRef} className="relative hidden lg:block">
               <button
                 aria-label="Search"
@@ -185,13 +185,28 @@ export function Navbar() {
               Shop Now
             </Link>
           </div>
-          <button
-            aria-label="Open menu"
-            className="rounded-full border border-white/12 bg-white/[0.02] p-2.5 text-white transition hover:border-white/25 hover:bg-white/[0.08] lg:hidden"
-            onClick={() => setOpen((value) => !value)}
-          >
-            <Menu size={18} />
-          </button>
+          <div className="ml-auto flex items-center gap-3 text-white/85 lg:hidden">
+            <div ref={accountRef} className="relative">
+              <button
+                aria-label="Account"
+                className="relative rounded-full border border-white/12 bg-white/[0.03] p-2.5 transition hover:border-white/25 hover:bg-white/[0.08] hover:text-white"
+                onClick={handleAccountClick}
+              >
+                <User size={16} />
+                {isAuthenticated ? (
+                  <span className="absolute -right-0.5 -top-0.5 h-2 w-2 rounded-full border border-black/60 bg-white/80" />
+                ) : null}
+              </button>
+              <AccountMenu open={accountOpen} onClose={() => setAccountOpen(false)} />
+            </div>
+            <button
+              aria-label="Open menu"
+              className="rounded-full border border-white/12 bg-white/[0.02] p-2.5 text-white transition hover:border-white/25 hover:bg-white/[0.08]"
+              onClick={() => setOpen((value) => !value)}
+            >
+              <Menu size={18} />
+            </button>
+          </div>
         </div>
         {open ? (
           <div className="glass-panel mt-4 rounded-[1.5rem] p-6 lg:hidden">
