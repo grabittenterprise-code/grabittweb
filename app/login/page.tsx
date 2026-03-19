@@ -1,10 +1,10 @@
 "use client";
 
+import { Suspense, FormEvent, useEffect, useState } from "react";
 import { getProviders, signIn, useSession } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { FormEvent, useEffect, useState } from "react";
 
-export default function LoginPage() {
+function LoginContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { status } = useSession();
@@ -240,10 +240,10 @@ export default function LoginPage() {
             {isReset
               ? "Enter your new password below"
               : isForgot
-              ? "We will email you a secure reset link"
-              : isRegister
-                ? "Create your GRABITT account"
-                : "Access your GRABITT account"}
+                ? "We will email you a secure reset link"
+                : isRegister
+                  ? "Create your GRABITT account"
+                  : "Access your GRABITT account"}
           </p>
 
           <form className="mt-8 space-y-5" onSubmit={handleSubmit}>
@@ -253,23 +253,12 @@ export default function LoginPage() {
                   type="text"
                   placeholder={isRegister ? "Username" : "Username or email"}
                   className="h-12 w-full rounded-full border border-white/20 bg-transparent px-4 pr-11 text-sm text-white placeholder:text-[#A8A8A8] transition focus:border-white focus:outline-none focus:ring-2 focus:ring-white/20"
-                  autoComplete={isRegister ? "username" : "username"}
+                  autoComplete="username"
                   value={isRegister ? username : identifier}
                   onChange={(event) =>
                     isRegister ? setUsername(event.target.value) : setIdentifier(event.target.value)
                   }
                 />
-                <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-white/70">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden>
-                    <circle cx="12" cy="8" r="4" stroke="currentColor" strokeWidth="1.5" />
-                    <path
-                      d="M4 20c1.8-3.2 5-5 8-5s6.2 1.8 8 5"
-                      stroke="currentColor"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                    />
-                  </svg>
-                </span>
               </label>
             ) : null}
 
@@ -283,22 +272,6 @@ export default function LoginPage() {
                   value={email}
                   onChange={(event) => setEmail(event.target.value)}
                 />
-                <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-white/70">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden>
-                    <path
-                      d="M3 6.75h18v10.5H3V6.75Z"
-                      stroke="currentColor"
-                      strokeWidth="1.5"
-                      strokeLinejoin="round"
-                    />
-                    <path
-                      d="m3 7 9 6 9-6"
-                      stroke="currentColor"
-                      strokeWidth="1.5"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </span>
               </label>
             ) : null}
 
@@ -312,16 +285,6 @@ export default function LoginPage() {
                   value={password}
                   onChange={(event) => setPassword(event.target.value)}
                 />
-                <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-white/70">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden>
-                    <rect x="5" y="11" width="14" height="9" rx="2" stroke="currentColor" strokeWidth="1.5" />
-                    <path
-                      d="M8.5 11V8.2a3.5 3.5 0 1 1 7 0V11"
-                      stroke="currentColor"
-                      strokeWidth="1.5"
-                    />
-                  </svg>
-                </span>
               </label>
             ) : null}
 
@@ -336,18 +299,7 @@ export default function LoginPage() {
                     value={newPassword}
                     onChange={(event) => setNewPassword(event.target.value)}
                   />
-                  <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-white/70">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden>
-                      <rect x="5" y="11" width="14" height="9" rx="2" stroke="currentColor" strokeWidth="1.5" />
-                      <path
-                        d="M8.5 11V8.2a3.5 3.5 0 1 1 7 0V11"
-                        stroke="currentColor"
-                        strokeWidth="1.5"
-                      />
-                    </svg>
-                  </span>
                 </label>
-
                 <label className="relative block">
                   <input
                     type="password"
@@ -357,16 +309,6 @@ export default function LoginPage() {
                     value={confirmPassword}
                     onChange={(event) => setConfirmPassword(event.target.value)}
                   />
-                  <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-white/70">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden>
-                      <rect x="5" y="11" width="14" height="9" rx="2" stroke="currentColor" strokeWidth="1.5" />
-                      <path
-                        d="M8.5 11V8.2a3.5 3.5 0 1 1 7 0V11"
-                        stroke="currentColor"
-                        strokeWidth="1.5"
-                      />
-                    </svg>
-                  </span>
                 </label>
               </>
             ) : null}
@@ -382,11 +324,7 @@ export default function LoginPage() {
                   />
                   Remember me
                 </label>
-                <button
-                  type="button"
-                  className="transition hover:text-white"
-                  onClick={() => setMode("forgot")}
-                >
+                <button type="button" className="transition hover:text-white" onClick={() => setMode("forgot")}>
                   Forgot Password?
                 </button>
               </div>
@@ -397,13 +335,7 @@ export default function LoginPage() {
               className="h-12 w-full rounded-full bg-white text-sm font-semibold tracking-wide text-black transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60"
               disabled={isSubmitting}
             >
-              {isReset
-                ? "UPDATE PASSWORD"
-                : isForgot
-                  ? "SEND RESET LINK"
-                  : isRegister
-                    ? "REGISTER"
-                    : "LOGIN"}
+              {isReset ? "UPDATE PASSWORD" : isForgot ? "SEND RESET LINK" : isRegister ? "REGISTER" : "LOGIN"}
             </button>
           </form>
 
@@ -425,21 +357,17 @@ export default function LoginPage() {
             </>
           ) : null}
 
-          {error ? (
-            <p className="mt-4 text-center text-xs text-red-200/90">{error}</p>
-          ) : null}
-          {message ? (
-            <p className="mt-4 text-center text-xs text-emerald-200/90">{message}</p>
-          ) : null}
+          {error ? <p className="mt-4 text-center text-xs text-red-200/90">{error}</p> : null}
+          {message ? <p className="mt-4 text-center text-xs text-emerald-200/90">{message}</p> : null}
 
           <p className="mt-6 text-center text-sm text-[#A8A8A8]">
             {isReset
               ? "Want to return to login? "
               : isForgot
-              ? "Remembered your password? "
-              : isRegister
-                ? "Already have an account? "
-                : "Don't have an account? "}
+                ? "Remembered your password? "
+                : isRegister
+                  ? "Already have an account? "
+                  : "Don't have an account? "}
             <button
               type="button"
               className="text-white transition hover:underline"
@@ -451,5 +379,13 @@ export default function LoginPage() {
         </div>
       </div>
     </main>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={<main className="min-h-screen bg-black" />}>
+      <LoginContent />
+    </Suspense>
   );
 }

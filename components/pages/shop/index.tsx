@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { PageWrapper } from "@/components/ui/page-wrapper";
 import { Footer } from "@/components/sections/footer";
 import { NewsletterSection } from "@/components/sections/newsletter-section";
@@ -9,7 +10,9 @@ export function ShopPage() {
   return (
     <PageWrapper>
       <ShopHero />
-      <ShopGrid />
+      <Suspense fallback={null}>
+        <ShopGrid />
+      </Suspense>
       <ShopAssurance />
       <NewsletterSection />
       <Footer />
