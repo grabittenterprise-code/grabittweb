@@ -5,6 +5,10 @@ import { ScrollToTop } from "@/components/ui/scroll-to-top";
 import "./globals.css";
 
 const siteUrl = "https://www.grabitt.company";
+const siteName = "GRABITT";
+const defaultTitle = "GRABITT Face Wash | Premium Natural Skincare";
+const defaultDescription =
+  "GRABITT is a premium skincare brand offering natural face wash and botanical cleansing essentials designed for deep cleansing, hydration, and healthy-looking skin.";
 
 const serif = Cormorant_Garamond({
   subsets: ["latin"],
@@ -26,21 +30,27 @@ const playfair = Playfair_Display({
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: "GRABITT | Natural Inner Beauty",
-  description:
-    "Ultra-dark premium skincare by GRABITT. A cinematic single-product experience built around a matte black face wash bottle.",
+  title: {
+    default: defaultTitle,
+    template: `%s | ${siteName}`
+  },
+  description: defaultDescription,
   alternates: {
     canonical: "/"
   },
   keywords: [
     "GRABITT",
+    "Grabitt skincare",
     "Grabitt face wash",
+    "Grabitt cleanser",
     "natural face wash",
     "premium skincare",
     "botanical cleanser",
     "luxury face wash",
     "hydrating cleanser",
-    "skin barrier face wash"
+    "skin barrier face wash",
+    "face wash for glowing skin",
+    "premium face cleanser India"
   ],
   robots: {
     index: true,
@@ -54,25 +64,38 @@ export const metadata: Metadata = {
     }
   },
   openGraph: {
-    title: "GRABITT | Natural Inner Beauty",
-    description:
-      "A premium face wash designed to deeply cleanse your skin while preserving natural hydration.",
+    title: defaultTitle,
+    description: defaultDescription,
     url: siteUrl,
-    siteName: "GRABITT",
+    siteName,
     locale: "en_US",
     type: "website"
   },
   twitter: {
     card: "summary_large_image",
-    title: "GRABITT | Natural Inner Beauty",
-    description:
-      "A premium face wash designed to deeply cleanse your skin while preserving natural hydration."
+    title: defaultTitle,
+    description: defaultDescription
   }
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  const organizationSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: siteName,
+    url: siteUrl,
+    logo: `${siteUrl}/favicon.ico`,
+    sameAs: []
+  };
+
   return (
     <html lang="en">
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+        />
+      </head>
       <body
         className={`${serif.variable} ${sans.variable} ${playfair.variable} bg-background text-white antialiased`}
       >
