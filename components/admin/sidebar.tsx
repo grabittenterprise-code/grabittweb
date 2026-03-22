@@ -10,6 +10,7 @@ import {
   Store,
   Users,
 } from "lucide-react";
+import { BrandLogo } from "@/components/ui/brand-logo";
 
 const navItems = [
   { label: "Dashboard", href: "/admin/dashboard", icon: LayoutDashboard },
@@ -26,7 +27,7 @@ export function AdminSidebar({ onNavigate }: { onNavigate?: () => void }) {
   return (
     <div className="w-full rounded-[1.75rem] border border-white/10 bg-[#111111]/95 p-3 shadow-[0_24px_70px_rgba(0,0,0,0.45)] backdrop-blur-2xl">
       <div className="border-b border-white/10 px-3 pb-4 pt-2">
-        <p className="text-[11px] uppercase tracking-[0.38em] text-white/38">GRABITT</p>
+        <BrandLogo className="max-w-[9.25rem]" imageClassName="object-contain" />
         <h2 className="mt-3 text-xl text-white/95">Admin Menu</h2>
         <p className="mt-2 text-sm leading-6 text-white/58">Quick access to dashboard, users, orders, inbox, and seller review.</p>
       </div>

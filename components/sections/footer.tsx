@@ -1,4 +1,5 @@
 import { Instagram, Twitter, Youtube } from "lucide-react";
+import { BrandLogo } from "@/components/ui/brand-logo";
 
 export function Footer() {
   return (
@@ -6,7 +7,7 @@ export function Footer() {
       <div className="section-wrap">
         <div className="grid gap-10 lg:grid-cols-[1.2fr_repeat(4,0.8fr)]">
           <div>
-            <p className="font-serif text-3xl tracking-[0.2em] text-white">GRABITT</p>
+            <BrandLogo className="max-w-[12rem]" imageClassName="object-contain" />
             <p className="mt-4 max-w-xs text-sm leading-7 text-white/55">
               Scientific skincare in a matte black object designed to elevate the everyday cleanse.
             </p>

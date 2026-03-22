@@ -84,7 +84,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     "@type": "Organization",
     name: siteName,
     url: siteUrl,
-    logo: `${siteUrl}/favicon.ico`,
+    logo: `${siteUrl}/brand/grabitt-wordmark.svg`,
     sameAs: []
   };
 

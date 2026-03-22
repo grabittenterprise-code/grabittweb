@@ -3,6 +3,7 @@
 import { FormEvent, Suspense, useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { signIn, signOut } from "next-auth/react";
+import { BrandLogo } from "@/components/ui/brand-logo";
 
 function AdminLoginContent() {
   const router = useRouter();
@@ -129,8 +130,8 @@ function AdminLoginContent() {
     <main className="min-h-screen bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.08),transparent_35%),linear-gradient(180deg,#0a0a0a,#0f0f0f)] text-white">
       <div className="mx-auto flex min-h-screen max-w-md items-center px-5">
         <div className="w-full rounded-3xl border border-white/15 bg-white/[0.03] p-8 backdrop-blur">
-          <p className="text-xs uppercase tracking-[0.35em] text-white/55">GRABITT</p>
-          <h1 className="mt-2 text-3xl text-white/95">
+          <BrandLogo className="max-w-[10rem]" imageClassName="object-contain" priority />
+          <h1 className="mt-4 text-3xl text-white/95">
             {mode === "reset" ? "Reset Admin Password" : mode === "forgot" ? "Forgot Password" : "Admin Login"}
           </h1>
           <p className="mt-2 text-sm text-white/60">

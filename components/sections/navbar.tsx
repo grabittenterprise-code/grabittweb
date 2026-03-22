@@ -8,6 +8,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { FormEvent, useEffect, useRef, useState } from "react";
 import { AccountMenu } from "@/components/ui/account-menu";
 import { useAuth } from "@/components/context/auth-context";
+import { BrandLogo } from "@/components/ui/brand-logo";
 
 export function Navbar() {
   const { scrollY } = useScroll();
@@ -98,15 +99,7 @@ export function Navbar() {
             aria-hidden
             className="pointer-events-none absolute inset-x-6 -bottom-px h-px bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.55),transparent)]"
           />
-          <Link
-            href="/"
-            className="min-w-0 flex items-center gap-3 font-serif text-lg tracking-[0.32em] text-white"
-          >
-            <span className="truncate">GRABITT</span>
-            <span className="hidden text-[0.6rem] font-semibold uppercase tracking-[0.45em] text-white/45 sm:inline">
-              Atelier
-            </span>
-          </Link>
+          <BrandLogo className="min-w-0 max-w-[8.8rem] sm:max-w-[10.5rem]" imageClassName="object-contain" priority />
           <nav className="hidden items-center gap-8 text-[0.7rem] uppercase tracking-[0.35em] text-white/62 lg:flex">
             {navItems.map((item) => {
               const isActive = pathname === item.href;
